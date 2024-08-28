@@ -12,11 +12,24 @@ KeyLogger::~KeyLogger()
 {
     running = false;
     delete logStrategy;
-    
+
     if (logfile.is_open())
     {
         logfile.close();
     }
 }
+
+void KeyLogger::setLogStrategy(LogStrategy* strategy)
+{
+    this->logStrategy = strategy;
+}
+
+bool KeyLogger::openLogFile(const std::string &filename)
+{
+    this->logfile.open(filename, std::ios::app);
+    return this->logfile.is_open();
+}
+
+
 
 #endif
