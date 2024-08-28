@@ -1,6 +1,7 @@
 #ifndef LOGSTRATEGY_H
 #define LOGSTRATEGY_H
 
+#include <fstream>
 
 class LogStrategy {
 public:
