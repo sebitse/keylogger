@@ -1,39 +1,33 @@
-# Compiler
-CXX := g++
+# Name of the executable file
+TARGET = keylogger
 
-# Flags
-CXXFLAGS := -Wall -Wextra -std=c++11
+# Compiler to use
+CXX = g++
 
-# Linker flags (for linking libraries)
-LDFLAGS := -lX11 -lXtst
+# Compilation options
+CXXFLAGS = -std=c++17 -Wall
 
-# Source code directory
-SRCDIR := src
+# Source files
+SRCS = main.cpp
 
-# Object file directory
-BUILDDIR := build
+# Object files generated from source files
+OBJS = $(SRCS:.cpp=.o)
 
-# Executable target
-TARGET := program
+# Default rule to build everything
+all: $(TARGET)
 
-# Source file list
-SRCS := $(wildcard $(SRCDIR)/*.cpp)
+# Rule to build the executable
+$(TARGET): $(OBJS)
+	$(CXX) $(CXXFLAGS) -o $(TARGET) $(OBJS)
 
-# Object file list
-OBJS := $(SRCS:$(SRCDIR)/%.cpp=$(BUILDDIR)/%.o)
-
-# Rule to build object files
-$(BUILDDIR)/%.o: $(SRCDIR)/%.cpp
-	@mkdir -p $(BUILDDIR)
+# Rule to generate object files
+%.o: %.cpp
 	$(CXX) $(CXXFLAGS) -c $< -o $@
 
-# Rule to link object files into the final executable
-$(TARGET): $(OBJS)
-	$(CXX) $(OBJS) $(LDFLAGS) -o $@ 
-
-# Clean up build files
+# Rule to clean up generated files
 clean:
-	rm -rf $(BUILDDIR) $(TARGET)
+	rm -f $(OBJS) $(TARGET)
 
-# Ensure that `clean` is not considered a file
-.PHONY: clean
+# Phony targets to avoid conflicts with files of the same name
+.PHONY: all clean
+
