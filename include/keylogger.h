@@ -15,7 +15,6 @@ class KeyLogger {
         bool running;              // Flag to indicate if the keylogger is on
 
     public:
-        public:
         // Constructor
         KeyLogger();
 

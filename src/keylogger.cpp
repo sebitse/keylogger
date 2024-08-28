@@ -10,9 +10,12 @@ KeyLogger::KeyLogger() :
 
 KeyLogger::~KeyLogger() 
 {
-    running = false;
     delete logStrategy;
 
+    if(this->isRunning())
+    {
+        running=false;
+    }
     if (logfile.is_open())
     {
         logfile.close();
@@ -30,6 +33,32 @@ bool KeyLogger::openLogFile(const std::string &filename)
     return this->logfile.is_open();
 }
 
+void KeyLogger::start()
+{
+    running = true;
+    char key;
 
+    while(running)
+    {
+        // need to think
+    }
+}
+
+void KeyLogger::stop()
+{
+    if(this->isRunning())
+    {
+        running=false;
+    }
+    if (logfile.is_open())
+    {
+        logfile.close();
+    }
+}
+
+bool KeyLogger::isRunning() const
+{
+    return this->running;
+}
 
 #endif
