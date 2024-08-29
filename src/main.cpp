@@ -1,6 +1,7 @@
 #include "../include/KeyLogger.h"
 
-int main() {
+int main() 
+{
     
-    return 0;
+    return EXIT_SUCCESS;
 }
