@@ -10,16 +10,9 @@ KeyLogger::KeyLogger() :
 
 KeyLogger::~KeyLogger() 
 {
-    delete logStrategy;
+    stop();
 
-    if(this->isRunning())
-    {
-        running=false;
-    }
-    if (logfile.is_open())
-    {
-        logfile.close();
-    }
+    delete logStrategy;
 }
 
 void KeyLogger::setLogStrategy(LogStrategy* strategy)
@@ -63,7 +56,7 @@ void KeyLogger::stop()
 {
     if(this->isRunning())
     {
-        running=false;
+        running = false;
     }
     if (logfile.is_open())
     {
