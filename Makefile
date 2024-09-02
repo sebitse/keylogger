@@ -1,33 +1,34 @@
-# Name of the executable file
-TARGET = keylogger
-
-# Compiler to use
+# Compiler and flags
 CXX = g++
+CXXFLAGS = -std=c++17 -Wall -Wextra -Iinclude
 
-# Compilation options
-CXXFLAGS = -std=c++17 -Wall
+# Target executable name
+TARGET = KeyLogger
 
 # Source files
-SRCS = main.cpp
+SRCS = src/main.cpp \
+       src/KeyLogger.cpp \
+       src/SimpleLogStrategy.cpp \
+       src/EncryptedLogStrategy.cpp \
+       src/FormattedLogStrategy.cpp
 
-# Object files generated from source files
+# Object files
 OBJS = $(SRCS:.cpp=.o)
 
-# Default rule to build everything
+# Default rule to build the target
 all: $(TARGET)
 
-# Rule to build the executable
+# Rule to link the object files and create the executable
 $(TARGET): $(OBJS)
 	$(CXX) $(CXXFLAGS) -o $(TARGET) $(OBJS)
 
-# Rule to generate object files
+# Rule to compile source files into object files
 %.o: %.cpp
 	$(CXX) $(CXXFLAGS) -c $< -o $@
 
-# Rule to clean up generated files
+# Clean rule to remove the generated files
 clean:
-	rm -f $(OBJS) $(TARGET)
+	rm -f $(TARGET) $(OBJS)
 
-# Phony targets to avoid conflicts with files of the same name
+# Phony targets to prevent conflicts with files named 'all' or 'clean'
 .PHONY: all clean
-
