@@ -2,6 +2,7 @@
 #define LOGSTRATEGY_H
 
 #include <fstream>
+#include <string.h>
 
 class LogStrategy {
 public:
@@ -9,7 +10,7 @@ public:
     virtual ~LogStrategy() = default;
 
     // Pure virtual function that must be implemented by all strategies
-    virtual void log(char key, std::ofstream& logfile) = 0;
+    virtual void log(std::string key, std::ofstream& logfile) = 0;
 };
 
 #endif 

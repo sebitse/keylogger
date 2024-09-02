@@ -13,10 +13,10 @@ class EncryptedLogStrategy : public LogStrategy
         EncryptedLogStrategy(uint8_t shiftAmount);
 
         // Caesar Encryption implementation
-        char caesarEncryption(char);
+        char caesarEncryption(std::string);
 
         // log implementation
-        void log(char key, std::ofstream& logfile) override;
+        void log(std::string key, std::ofstream& logfile) override;
 };
 
 #endif // ENCRYPTEDLOG_H

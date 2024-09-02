@@ -1,6 +1,6 @@
 #include "../include/FormattedLogStrategy.h"
 
-void FormattedLogStrategy::log(char key, std::ofstream& logfile) 
+void FormattedLogStrategy::log(std::string key, std::ofstream& logfile) 
 {
     
 }

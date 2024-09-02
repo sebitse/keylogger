@@ -6,7 +6,7 @@
 class SimpleLogStrategy : public LogStrategy
 {
     public:
-        void log(char key, std::ofstream& logfile) override;
+        void log(std::string key, std::ofstream& logfile) override;
 };
 
 #endif // SIMPLELOG_H
