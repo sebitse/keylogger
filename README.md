@@ -1,6 +1,6 @@
-# Keylogger Project
+# Basic keylogger
 
-This project is a simple keylogger for Windows. It captures keypresses and logs them into a text file. The keylogger is designed with C++ and uses basic logging mechanisms without external libraries.
+This project is a simple keylogger for Windows. It captures keypresses and logs them into a text file. The keylogger is designed with C++ and uses basic logging mechanisms.
 
 ## Features
 
