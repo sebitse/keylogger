@@ -11,8 +11,8 @@ This project is a simple keylogger for Windows. It captures keypresses and logs 
 
 ## Requirements
 
-- **Windows Operating System**: This project is designed to run on Windows platforms.
-- **C++17**: The code is written in C++17.
+- **Windows OS**: This project is designed to run on Windows.
+- **C++17**: The code is written in C++.
 - **Make**:  To build the project.
 
 ## Installation
