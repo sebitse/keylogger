@@ -1,34 +1,39 @@
 # Compiler and flags
 CXX = g++
-CXXFLAGS = -std=c++17 -Wall -Wextra -Iinclude
+CXXFLAGS = -Iinclude -Wall -Wextra -std=c++17
 
-# Target executable name
-TARGET = KeyLogger
+# Directories
+SRC_DIR = src
+INCLUDE_DIR = include
+OBJ_DIR = obj
+BIN_DIR = bin
 
-# Source files
-SRCS = src/main.cpp \
-       src/KeyLogger.cpp \
-       src/SimpleLogStrategy.cpp \
-       src/EncryptedLogStrategy.cpp \
-       src/FormattedLogStrategy.cpp
+# Files
+SRCS = $(wildcard $(SRC_DIR)/*.cpp)
+OBJS = $(patsubst $(SRC_DIR)/%.cpp, $(OBJ_DIR)/%.o, $(SRCS))
+TARGET = $(BIN_DIR)/main.exe
 
-# Object files
-OBJS = $(SRCS:.cpp=.o)
-
-# Default rule to build the target
+# Default target
 all: $(TARGET)
 
-# Rule to link the object files and create the executable
-$(TARGET): $(OBJS)
-	$(CXX) $(CXXFLAGS) -o $(TARGET) $(OBJS)
+# Link the object files into the final executable
+$(TARGET): $(OBJS) | $(BIN_DIR)
+	$(CXX) $(OBJS) -o $@
 
-# Rule to compile source files into object files
-%.o: %.cpp
+# Compile each .cpp file into a .o object file
+$(OBJ_DIR)/%.o: $(SRC_DIR)/%.cpp | $(OBJ_DIR)
 	$(CXX) $(CXXFLAGS) -c $< -o $@
 
-# Clean rule to remove the generated files
-clean:
-	rm -f $(TARGET) $(OBJS)
+# Create directories if they don't exist (Windows version)
+$(OBJ_DIR):
+	@if not exist $(OBJ_DIR) mkdir $(OBJ_DIR)
 
-# Phony targets to prevent conflicts with files named 'all' or 'clean'
+$(BIN_DIR):
+	@if not exist $(BIN_DIR) mkdir $(BIN_DIR)
+
+# Clean up
+clean:
+	@if exist $(OBJ_DIR) rmdir /S /Q $(OBJ_DIR)
+	@if exist $(BIN_DIR) rmdir /S /Q $(BIN_DIR)
+
 .PHONY: all clean

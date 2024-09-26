@@ -23,7 +23,7 @@ class FormattedLogStrategy : public LogStrategy
 
     public:
         // Constructor
-        FormattedLogStrategy(const std::string& format = "[%H:%M:%S] {MESSAGE}");
+        FormattedLogStrategy(const std::string& format);
 
         // Setter for a new possible format
         void setFormat(const std::string&);
